@@ -1,0 +1,1 @@
+            print([player.it for player in players])
