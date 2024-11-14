@@ -62,7 +62,7 @@ class Player():
             self.x = 0 
             return 
         elif self.x > width - self.width:
-            self.x = width - self.witdh 
+            self.x = width - self.width 
             return
 
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
