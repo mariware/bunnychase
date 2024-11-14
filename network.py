@@ -1,11 +1,12 @@
 import pickle
 import socket
+from ip_address import get_local_ip
 
 class Network:
     def __init__(self):
         ''' This method initializes the network and confirms the connection. '''
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Initialize socket.
-        self.server = "192.168.0.101" # Initialize server.
+        self.server = get_local_ip() # Initialize server.
         self.port = 7000 # Initialize port.
         self.addr = (self.server, self.port) # Bind the server and port to an address.
         self.p = self.connect() # Initialize connection and player.

@@ -4,8 +4,9 @@ import time
 from _thread import *
 from player import Player
 import sys
+from ip_address import get_local_ip
 
-server = "192.168.0.101"
+server = get_local_ip()
 port = 7000
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Initialize socket.
