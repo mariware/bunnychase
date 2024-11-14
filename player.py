@@ -4,7 +4,7 @@ import time
 width = 1000
 height = 600
 win = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Client")
+pygame.display.set_caption("Bunny Chase")
 
 class Player():
 
@@ -57,29 +57,36 @@ class Player():
 
     def move(self):
         keys = pygame.key.get_pressed()
+        
+        if self.x < 0:
+            self.x = 0 
+            return 
+        elif self.x > width - self.width:
+            self.x = width - self.witdh 
+            return
 
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.left = True
             self.right = False
             self.up = False
             self.down = False
             self.moving = True
             self.x -= self.vel
-        elif keys[pygame.K_RIGHT]:
+        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.left = False
             self.right = True
             self.up = False
             self.down = False
             self.moving = True
             self.x += self.vel
-        elif keys[pygame.K_UP]:
+        elif keys[pygame.K_UP] or keys[pygame.K_w]:
             self.left = False
             self.right = False
             self.up = True
             self.down = False
             self.moving = True
             self.y -= self.vel
-        elif keys[pygame.K_DOWN]:
+        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.left = False
             self.right = False
             self.up = False
@@ -91,3 +98,5 @@ class Player():
 
         self.hitbox = pygame.Rect(self.x + 6, self.y + 12, 20, 20)
         self.draw(win)
+        
+        

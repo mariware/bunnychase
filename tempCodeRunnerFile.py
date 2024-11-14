@@ -1,1 +1,1 @@
-            print([player.it for player in players])
+print([player.it for player in players])

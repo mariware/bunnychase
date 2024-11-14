@@ -5,7 +5,7 @@ from _thread import *
 from player import Player
 import sys
 
-server = "192.168.100.22"
+server = "192.168.0.101"
 port = 7000
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Initialize socket.
