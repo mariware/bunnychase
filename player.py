@@ -13,7 +13,7 @@ class Player():
     walkUp = [pygame.image.load('sprites/tile036.png'), pygame.image.load('sprites/tile038.png'), pygame.image.load('sprites/tile037.png')]
     walkDown = [pygame.image.load('sprites/tile000.png'), pygame.image.load('sprites/tile001.png'), pygame.image.load('sprites/tile002.png')]
     carrot = pygame.image.load('sprites/tile096.png')
-
+    
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -29,7 +29,8 @@ class Player():
         self.walkCount = 0
         self.vel = 3
         self.collisionCD = 0
-
+        self.score = 0
+        
     def draw(self, win):
         if self.walkCount + 1 >= 15:
             self.walkCount = 0

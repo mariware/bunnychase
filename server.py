@@ -5,6 +5,14 @@ from _thread import *
 from player import Player
 import sys
 from ip_address import get_local_ip
+import threading 
+
+test_player = Player(100, 100)
+test_player.score = 50
+serialized = pickle.dumps(test_player)
+deserialized = pickle.loads(serialized)
+
+last_score_update = time.time()
 
 server = get_local_ip()
 port = 7000
@@ -23,7 +31,19 @@ print("Server started. It is waiting for a connection.")
 players = [Player(150, 50), Player(250, 50), Player(350, 50), Player(450, 50), Player(550, 50), Player(650, 50), Player(750, 50), Player(850, 50)]
 players[0].it = True
 cooldown = 0
+lock = threading.Lock()
 
+def updateScores (players):
+    '''To Continously increase the score of the bunny with carrot'''
+    global last_score_update 
+    current_time = time.time()
+    
+    if current_time - last_score_update >= 1:
+        for player in players:
+            if player.it:
+                player.score += 1 
+        last_score_update = current_time
+        
 def checkCollisions(players):
     ''' Handle collisions between players on the server side only. '''
     global cooldown
@@ -41,14 +61,14 @@ def checkCollisions(players):
                     # Transfer "it" status
                     player1.it = False
                     player2.it = True
+                    player2.score += 10 #Add 10 spoints to those bunny/player who got the carrot
                     cooldown = current_time + 2  # Set 2-second cooldown
-                    print(f"Player {i} transferred 'it' status to Player {j}")
                     return players
     return players
 
 def thread(conn, player):
     ''' This function handles each client thread. '''
-
+    global players
     conn.send(pickle.dumps(players[player])) # Send player information to client.
     reply = ""
 
@@ -63,6 +83,9 @@ def thread(conn, player):
             if not data: 
                 print("Disconnected.")
                 break
+            
+            with lock:
+                updateScores(players)
 
             # Send the updated list of all player information to the client.
             reply = checkCollisions(players)
