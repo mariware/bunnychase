@@ -10,8 +10,7 @@ class Network:
         self.server = get_local_ip() # Initialize server.
         self.port = 7000 # Initialize port.
         self.addr = (self.server, self.port) # Bind the server and port to an address.
-        self.p = self.connect() # Initialize connection and player.
-        
+        self.p = self.connect() # Initialize connection and player.    
 
     def connect(self):
         ''' This method attempts to connect to the server. '''

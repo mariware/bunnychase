@@ -1,10 +1,11 @@
 import pygame
-import time
+import uuid
+# import time
 
 width = 1000
 height = 600
 win = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Bunny Chase")
+pygame.display.set_caption("bunnychase!")
 
 class Player():
 
@@ -15,6 +16,7 @@ class Player():
     carrot = pygame.image.load('sprites/tile096.png')
     
     def __init__(self, x, y):
+        self.id = str(uuid.uuid4())
         self.x = x
         self.y = y
         self.width = 32
