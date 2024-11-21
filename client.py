@@ -71,8 +71,9 @@ def redrawWindow(win, players, score, time_left):
     win.blit(score_text, (50, 53))
     timer_text = font.render(f'Time Left: {time_left}s', True, BLACK)
     win.blit(timer_text, (50, 73))
-    
-    Player.draw_mini_cam(win,players[0])
+
+            
+    Player.draw_mini_cam(win,p)
 
     pygame.display.update()
 

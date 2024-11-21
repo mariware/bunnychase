@@ -62,6 +62,7 @@ class Player():
             elif self.down: win.blit(self.walkDown[2], (self.x, self.y))
         
         if self.it: win.blit(self.carrot, (self.x + 9, self.y - 15))
+        
 
     def move(self):
         keys = pygame.key.get_pressed()
