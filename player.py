@@ -7,6 +7,11 @@ height = 600
 win = pygame.display.set_mode((width, height))
 pygame.display.set_caption("bunnychase!")
 
+mini_cam_size = 200
+zoom_factor = 2
+mini_cam_rect = pygame.Rect(width - mini_cam_size - 10, height - mini_cam_size - 10, mini_cam_size, mini_cam_size)
+
+
 class Player():
 
     walkLeft = [pygame.image.load('sprites/tile012.png'), pygame.image.load('sprites/tile014.png'), pygame.image.load('sprites/tile013.png')]
@@ -108,5 +113,24 @@ class Player():
 
         self.hitbox = pygame.Rect(self.x + 6, self.y + 12, 20, 20)
         self.draw(win)
+    
+    def draw_mini_cam(win, player):
+        mini_cam_size = 200
+        zoom_factor = 2
+        mini_cam_rect = pygame.Rect(width - mini_cam_size - 10, height - mini_cam_size - 10, mini_cam_size, mini_cam_size)
+        
+        mini_cam_surface = pygame.Surface((mini_cam_size, mini_cam_size))
+        
+        cam_x = max(0, player.x - mini_cam_size // (zoom_factor * 2))
+        cam_y = max(0, player.y - mini_cam_size // (zoom_factor * 2))
+        
+        mini_cam_surface.blit(win, (0, 0), pygame.Rect(cam_x, cam_y, mini_cam_size * zoom_factor, mini_cam_size * zoom_factor))
+        mini_cam_surface = pygame.transform.scale(mini_cam_surface, (mini_cam_size, mini_cam_size))
+    
+        pygame.draw.rect(win, (0, 0, 0), mini_cam_rect, 2)
+        win.blit(mini_cam_surface, mini_cam_rect.topleft)
+    
+         
+    
         
         
