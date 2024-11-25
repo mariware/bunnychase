@@ -14,6 +14,7 @@ bg = pygame.image.load('bg.png')
 bg1 = pygame.image.load('bg1.png')
 fg1 = pygame.image.load('fg1.png')
 fg2 = pygame.image.load('fg2.png')
+fg3 = pygame.image.load('fg3.png')
 
 # Initialize colors.
 WHITE = (255, 255, 255)
@@ -66,14 +67,14 @@ def redrawWindow(win, players, score, time_left):
     for player in players:
         player.draw(win) # Draw each player in the list.
 
+    Player.draw_mini_cam(win, p)
+    win.blit(fg3, (790, 390))
+
     win.blit(fg1, (20, 20))
     score_text = font.render(f'Score: {score}', True, BLACK)
     win.blit(score_text, (50, 53))
     timer_text = font.render(f'Time Left: {time_left}s', True, BLACK)
     win.blit(timer_text, (50, 73))
-
-            
-    Player.draw_mini_cam(win,p)
 
     pygame.display.update()
 
