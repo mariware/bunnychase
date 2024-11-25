@@ -10,10 +10,10 @@ server = get_local_ip()
 port = 7000
 
 #to try with other machine
-#print(f"Server's IP address: {server}") 
-#
-#with open("server_ip.txt", "w") as f:
- #   f.write(server)
+print(f"Server's IP address: {server}") 
+
+with open("server_ip.txt", "w") as f:
+   f.write(server)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Initialize socket.
 
