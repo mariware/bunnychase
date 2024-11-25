@@ -38,7 +38,7 @@ def drawStartScreen():
 
     pygame.display.update()
 
-def drawQuitScreen(final_score=None):
+def drawQuitScreen(final_score=None, winner=False):
     ''' This function draws the quit screen with restart and quit options. '''
     win.blit(bg1, (0, 0))
     
@@ -47,6 +47,14 @@ def drawQuitScreen(final_score=None):
         win.blit(fg2, (width // 2 - 60, height // 2 - 180))
         score_text = font.render(f'Score:{final_score}', True, BLACK)
         win.blit(score_text, (width // 2 - score_text.get_width() // 2, height // 2 - 150))
+    
+    #Display if hte player won or lose
+    large_font = pygame.font.Font('font1.TTF', 90)
+    if winner:
+        message_text = large_font.render('You Won!', True, (255,105,180))
+    else:
+        message_text = large_font.render('You Lost!', True, (200, 0, 0))
+    win.blit(message_text, (width // 2 - message_text.get_width() // 2, height // 2 + 210))
 
     # Draw Restart button.
     win.blit(fg2, (width // 2 - 60, height // 2))
@@ -122,7 +130,10 @@ def main():
                         running = False  # Exit the game.
         
         elif game_over:
-            drawQuitScreen(final_score=p.score)  
+            highest_score = max(player.score for player in players)
+            is_winner = p.score == highest_score
+            
+            drawQuitScreen(final_score=p.score, winner=is_winner)  
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -148,6 +159,7 @@ def main():
             time_left = max(0, game_duration - elapsed_seconds)
 
             if time_left == 0 and not game_over:
+                
                 game_over = True  # Trigger the game over screen only once
 
             players = n.send(p)  # Send this player's position and get all players' positions back.
