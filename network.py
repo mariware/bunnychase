@@ -3,17 +3,6 @@ import socket
 from ip_address import get_local_ip
 
 class Network:
-    # def __init__(self):
-    #     ''' This method initializes the network and confirms the connection. '''
-        
-    #     self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Initialize socket.
-    #     self.server = self.get_server_ip() 
-    #     # self.server = get_local_ip() # Initialize server.
-    #     self.port = 7000 # Initialize port.
-    #     self.addr = (self.server, self.port) # Bind the server and port to an address.
-    #     self.p = self.connect() # Initialize connection and player.    
-
-    # # to try with other machine
     def get_server_ip(self):
         ''' Retrieve the server IP address from a file or prompt the user '''
         try:
@@ -25,7 +14,6 @@ class Network:
             server_ip = input("Enter the server's IP address: ").strip()
             return server_ip
     
-    #or to try with  other machine 
     def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Initialize socket
         self.server = self.prompt_server_ip()  # Prompt for the server's IP address

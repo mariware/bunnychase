@@ -38,9 +38,15 @@ def drawStartScreen():
 
     pygame.display.update()
 
-def drawQuitScreen():
+def drawQuitScreen(final_score=None):
     ''' This function draws the quit screen with restart and quit options. '''
     win.blit(bg1, (0, 0))
+    
+    # Display Final Score.
+    if final_score is not None:
+        win.blit(fg2, (width // 2 - 60, height // 2 - 180))
+        score_text = font.render(f'Score:{final_score}', True, BLACK)
+        win.blit(score_text, (width // 2 - score_text.get_width() // 2, height // 2 - 150))
 
     # Draw Restart button.
     win.blit(fg2, (width // 2 - 60, height // 2))
@@ -116,7 +122,7 @@ def main():
                         running = False  # Exit the game.
         
         elif game_over:
-            drawQuitScreen()  
+            drawQuitScreen(final_score=p.score)  
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
