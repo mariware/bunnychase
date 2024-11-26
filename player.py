@@ -63,7 +63,7 @@ class Player():
             elif self.down: win.blit(self.walkDown[2], (self.x, self.y))
         
         if self.it: win.blit(self.carrot, (self.x + 9, self.y - 15))
-        font = pygame.font.Font(None, 16)
+        font = pygame.font.Font('font1.TTF', 16)
         name_text = font.render(self.name, True, (0, 0, 0))
         win.blit(name_text, (self.x + (self.width - name_text.get_width()) // 2, self.y + self.height + 3))
         

@@ -12,6 +12,8 @@ pygame.display.set_caption("Client")
 
 bg = pygame.image.load('bg.png')
 bg1 = pygame.image.load('bg1.png')
+bgwin = pygame.image.load('bgwin.png')
+bglose = pygame.image.load('bglose.png')
 fg1 = pygame.image.load('fg1.png')
 fg2 = pygame.image.load('fg2.png')
 fg3 = pygame.image.load('fg3.png')
@@ -42,12 +44,11 @@ def drawNamePrompt():
     '''Draws a prompt to ask the player for their name.'''
     input_active = True
     name = ""
-    base_font = pygame.font.Font(None, 50)
     input_box = pygame.Rect(width // 2 - 150, height // 2 - 50, 300, 50)
 
     while input_active:
         win.blit(bg, (0, 0))
-        prompt_text = base_font.render("Enter Name:", True, (0, 0, 0))
+        prompt_text = font.render("Enter Name:", True, (0, 0, 0))
         win.blit(prompt_text, (width // 2 - prompt_text.get_width() // 2, height // 2 - 100))
 
         for event in pygame.event.get():
@@ -62,7 +63,7 @@ def drawNamePrompt():
                 else: name+= event.unicode
 
         pygame.draw.rect(win, (0, 0, 0), input_box, 2)
-        text_surface = base_font.render(name, True, (0, 0, 0))
+        text_surface = font.render(name, True, (0, 0, 0))
         win.blit(text_surface, (input_box.x + 5, input_box.y + 5))
         input_box.w = max(300, text_surface.get_width() + 10)
 
@@ -75,19 +76,12 @@ def drawQuitScreen(final_score=None, winner=False):
     ''' This function draws the quit screen with restart and quit options. '''
     win.blit(bg1, (0, 0))
     
-    # Display Final Score.
-    if final_score is not None:
-        win.blit(fg2, (width // 2 - 60, height // 2 - 180))
-        score_text = font.render(f'Score:{final_score}', True, BLACK)
-        win.blit(score_text, (width // 2 - score_text.get_width() // 2, height // 2 - 150))
-    
-    #Display if hte player won or lose
+    #Display if the player won or lost.
     large_font = pygame.font.Font('font1.TTF', 90)
     if winner:
-        message_text = large_font.render('You Won!', True, (255,105,180))
+        win.blit(bgwin, (0, 0))
     else:
-        message_text = large_font.render('You Lost!', True, (200, 0, 0))
-    win.blit(message_text, (width // 2 - message_text.get_width() // 2, height // 2 + 210))
+        win.blit(bglose, (0, 0))
 
     # Draw Restart button.
     win.blit(fg2, (width // 2 - 60, height // 2))
