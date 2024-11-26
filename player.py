@@ -20,8 +20,9 @@ class Player():
     walkDown = [pygame.image.load('sprites/tile000.png'), pygame.image.load('sprites/tile001.png'), pygame.image.load('sprites/tile002.png')]
     carrot = pygame.image.load('sprites/tile096.png')
     
-    def __init__(self, x, y):
+    def __init__(self, x, y, name="Player"):
         self.id = str(uuid.uuid4())
+        self.name = name 
         self.x = x
         self.y = y
         self.width = 32
@@ -62,7 +63,11 @@ class Player():
             elif self.down: win.blit(self.walkDown[2], (self.x, self.y))
         
         if self.it: win.blit(self.carrot, (self.x + 9, self.y - 15))
+        font = pygame.font.Font(None, 16)
+        name_text = font.render(self.name, True, (0, 0, 0))
+        win.blit(name_text, (self.x + (self.width - name_text.get_width()) // 2, self.y + self.height + 3))
         
+
 
     def move(self):
         keys = pygame.key.get_pressed()

@@ -38,6 +38,39 @@ def drawStartScreen():
 
     pygame.display.update()
 
+def drawNamePrompt():
+    '''Draws a prompt to ask the player for their name.'''
+    input_active = True
+    name = ""
+    base_font = pygame.font.Font(None, 50)
+    input_box = pygame.Rect(width // 2 - 150, height // 2 - 50, 300, 50)
+
+    while input_active:
+        win.blit(bg, (0, 0))
+        prompt_text = base_font.render("Enter Name:", True, (0, 0, 0))
+        win.blit(prompt_text, (width // 2 - prompt_text.get_width() // 2, height // 2 - 100))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    input_active = False
+                elif event.key == pygame.K_BACKSPACE:
+                    name = name[:-1]
+                else: name+= event.unicode
+
+        pygame.draw.rect(win, (0, 0, 0), input_box, 2)
+        text_surface = base_font.render(name, True, (0, 0, 0))
+        win.blit(text_surface, (input_box.x + 5, input_box.y + 5))
+        input_box.w = max(300, text_surface.get_width() + 10)
+
+        pygame.display.flip()
+
+    return name
+                    
+    
 def drawQuitScreen(final_score=None, winner=False):
     ''' This function draws the quit screen with restart and quit options. '''
     win.blit(bg1, (0, 0))
@@ -123,6 +156,8 @@ def main():
 
                     # Check if the Start button is clicked.
                     if width // 2 - 60 <= x <= width // 2 + 60 and height // 2 <= y <= height // 2 + 75:
+                        player_name = drawNamePrompt()
+                        p.name = player_name
                         start_screen = False  # Exit start screen and start game.
 
                     # Check if the Quit button is clicked.
