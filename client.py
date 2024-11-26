@@ -1,6 +1,8 @@
 import pygame
 from network import Network
 from player import Player
+import pickle
+import time
 
 pygame.font.init()
 font = pygame.font.Font('font1.TTF', 20)
@@ -125,13 +127,22 @@ def main():
     global n, p
     n = Network() # Initialize network connection.
     p = n.getP() # Get the player's data from the server.
+    
+    game_start_time = pickle.loads(n.client.recv(2048))
 
     clock = pygame.time.Clock()
 
     game_duration = 60  # Set countdown duration in seconds
+    
+    elapsed_seconds = max(0, int(time.time() - game_start_time))
+    time_left = max(0, game_duration - elapsed_seconds)
+
+    if time_left == 0 and not game_over:
+        game_over = True 
     start_ticks = pygame.time.get_ticks()  # Record start time
     game_over = False
 
+    running = True
     while running:
         clock.tick(60)
 

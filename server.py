@@ -6,6 +6,8 @@ from player import Player
 import sys
 from ip_address import get_local_ip
 
+game_start_time = time.time()+ 10
+
 server = get_local_ip()
 port = 7000
 
@@ -55,7 +57,8 @@ def checkCollisions(players):
 def thread(conn, player):
     ''' This function handles each client thread. '''
     global players
-    conn.send(pickle.dumps(players[player])) # Send player information to client.
+    conn.send(pickle.dumps(players[player]))# Send player information to client.
+    conn.send(pickle.dumps(game_start_time))  # Send the game start time to the client
     reply = ""
 
     while True: # Run this loop while client is connected.
