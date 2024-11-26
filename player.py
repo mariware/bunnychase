@@ -127,8 +127,8 @@ class Player():
         
         mini_cam_surface = pygame.Surface((mini_cam_size, mini_cam_size))
         
-        cam_x = max(0, player.x - mini_cam_size // (zoom_factor * 2))
-        cam_y = max(0, player.y - mini_cam_size // (zoom_factor * 2))
+        cam_x = max(0, player.x + 16 - mini_cam_size // zoom_factor)
+        cam_y = max(0, player.y + 24 - mini_cam_size // zoom_factor)
         
         mini_cam_surface.blit(win, (0, 0), pygame.Rect(cam_x, cam_y, mini_cam_size * zoom_factor, mini_cam_size * zoom_factor))
         mini_cam_surface = pygame.transform.scale(mini_cam_surface, (mini_cam_size, mini_cam_size))
