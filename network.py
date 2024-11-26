@@ -36,6 +36,17 @@ class Network:
             return True
         except socket.error:
             return False
+        
+    def test_conncect(self,ip):
+        '''Test connection to the server'''
+        test_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            test_socket.settimeout(2)  # Set a timeout for the connection test
+            test_socket.connect((ip, self.port))  # Attempt to connect
+            test_socket.close()
+            return True
+        except (socket.error, socket.timeout):
+            return False
     
         
     def connect(self):
@@ -44,7 +55,9 @@ class Network:
             self.client.connect(self.addr)
             return pickle.loads(self.client.recv(2048)) # Load object data.
         except: # Pass if there are errors.
-            pass
+            print("Unable to connect to the server. Please check the IP address and try again.")
+            exit()
+
 
     def send(self, data):
         ''' This method sends some data to the server. '''
