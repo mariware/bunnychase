@@ -30,11 +30,16 @@ class Network:
             print("Invalid IP address. Please try again.")
 
     def validate_ip(self, ip):
-        ''' Validate the entered IP address '''
+        # Check format of ip address
+        parts = ip.split('.')
+        if len(parts) != 4:
+            return False    # Ensure there are 4 octets
+        if all(0 > int(part) > 255 for part in parts):
+            return False 
         try:
             socket.inet_aton(ip)
             return True
-        except socket.error:
+        except (socket.error, ValueError):
             return False
         
     def test_conncect(self,ip):
